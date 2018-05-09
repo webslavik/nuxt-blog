@@ -6,13 +6,11 @@
 </template>
 
 <script>
-import TheHeader from '~/components/TheHeader'
-import Logo from '~/components/Logo'
+import TheHeader from '~/components/navigation/TheHeader'
 
 export default {
   components: {
     TheHeader,
-    Logo
   }
 }
 </script>
@@ -28,5 +26,18 @@ export default {
 
   img {
     max-width: 100%;
+  }
+
+  ul,
+  ol {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+  }
+
+  .container {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
   }
 </style>

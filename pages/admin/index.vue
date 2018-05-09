@@ -1,8 +1,12 @@
 <template>
   <div class='container'>
-    <h1>Posts</h1>
+    <div>
+      <nuxt-link to='/admin/new-post' tag='button'>Create post</nuxt-link>
+    </div>
+    <hr>
     <posts-list />
-  </div>  
+  </div>
+
 </template>
 
 <script>
@@ -18,5 +22,4 @@ export default {
 <style scoped>
 
 </style>
-
 

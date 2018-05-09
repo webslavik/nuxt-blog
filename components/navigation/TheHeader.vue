@@ -25,10 +25,12 @@ export default {
     justify-content: space-between;
     align-items: center;
     padding: 16px 24px;
+    border-bottom: 1px solid #ccc;
   }
 
   .logo {
     font-size: 18px;
+    cursor: pointer;
   }
 
   .nav a {
