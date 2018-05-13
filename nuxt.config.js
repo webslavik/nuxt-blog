@@ -58,7 +58,7 @@ module.exports = {
   },
   env: {
     firebaseUrl: 'https://nuxt-blog-b7aa3.firebaseio.com',
-    msg: 'message from Nuxt Config'
+    firebaseAPIKey: 'AIzaSyATZR2L_zByfD0MDTu8_DggqqW_pzpArhI'
   },
   router: {
     linkActiveClass: 'is-active'

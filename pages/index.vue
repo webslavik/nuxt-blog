@@ -10,9 +10,7 @@
 
 <script>
 export default {
-  components: {
-
-  },
+  middleware: 'log',
   computed: {
     loadedPosts() {
       return this.$store.getters.loadedPosts

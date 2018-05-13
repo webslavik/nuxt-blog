@@ -3,7 +3,8 @@ import axios from 'axios'
 
 
 const state = {
-  loadedPosts: []
+  loadedPosts: [],
+  token: null
 }
 
 const getters = {
@@ -20,6 +21,9 @@ const mutations = {
   editPost(state, editPost) {
     const indexPost = state.loadedPosts.findIndex(post => post.id === editPost.id)
     state.loadedPosts[indexPost] = editPost
+  },
+  setToken(state, token) {
+    state.token = token
   }
 }
 
@@ -63,6 +67,25 @@ const actions = {
         commit('editPost', editPost)
       })
       .catch(error => console.log(error))
+  },
+
+  authUser({ commit }, authData) {
+    let authUrl = `https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=${process.env.firebaseAPIKey}`
+      
+    if (!authData.isLogin) {
+      authUrl = `https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=${process.env.firebaseAPIKey}`
+    }
+
+    return axios
+      .post(authUrl, {
+        email: authData.email,
+        password: authData.password,
+        returnSecureToken: true
+      })
+      .then(response => {
+        commit('setToken', response.data.idToken)
+      })
+      .catch(error => console.log(error.response.data.error.message))
   }
 }
 
