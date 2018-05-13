@@ -15,35 +15,10 @@ export default {
   components: {
     PostsList
   },
-  data() {
-    return {
-      loadedPosts: []
+  computed: {
+    loadedPosts() {
+      return this.$store.getters.loadedPosts
     }
-  },
-  asyncData(context, callback) {
-    console.log(context)
-    setTimeout(() => {
-      callback(null, {
-        loadedPosts: [
-          {
-            id: '1',
-            title: 'Post title 1',
-            content: 'Post content 1 ...',
-            thumbnailPath: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxmM0Vrv6cN8NwY4B_xogydQrbRXioqF2pqywA4emSjMNO7wAJ'
-          },
-          {
-            id: '2',
-            title: 'Post title 2',
-            content: 'Post content 2 ...',
-            thumbnailPath: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxmM0Vrv6cN8NwY4B_xogydQrbRXioqF2pqywA4emSjMNO7wAJ'
-          },
-        ]
-      })
-    }, 1500)
-  },
-  created() {
-    this.$store.dispatch('setPosts', this.loadedPosts)
-    console.log(this.$store.getters.loadedPosts)
   }
 }
 </script>

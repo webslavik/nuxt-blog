@@ -24,7 +24,7 @@ export default {
           date: new Date(),
           author: 'Jack',
           content: 'Some awesome content post blab bla'
-        }
+        },
       })
     }, 1000)
   }
