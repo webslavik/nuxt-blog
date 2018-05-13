@@ -53,7 +53,7 @@ export default {
   },
   methods: {
     onSave() {
-      console.log(this.postData)
+      this.$emit('submit', this.postData)
     }
   }
 }

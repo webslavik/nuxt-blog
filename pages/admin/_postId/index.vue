@@ -7,23 +7,25 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 import AdminPostForm from '~/components/Admin/AdminPostForm'
 
 export default {
-  name: 'NewPost',
+  name: 'EditPost',
   components: {
     AdminPostForm,
   },
-  data() {
-    return {
-      loadedPost: {
-        author: 'Jack',
-        title: 'Post title',
-        content: 'Some new awesome content',
-        thumbnailPath: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxmM0Vrv6cN8NwY4B_xogydQrbRXioqF2pqywA4emSjMNO7wAJ',
-      }
-    }
-  }
+  asyncData(context) {
+    return axios
+      .get(`https://nuxt-blog-b7aa3.firebaseio.com/posts/${context.params.postId}.json`)
+      .then(response => {
+        return {
+          loadedPost: response.data
+        }
+      })
+      .catch(error => context.error())
+  },
 }
 </script>
 

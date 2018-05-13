@@ -1,11 +1,11 @@
 <template>
   <div class='container'>
-    <h1>{{ loadingPost.title }}</h1>
+    <h1>{{ loadedPosts.title }}</h1>
     <div>
-      <div>Last updated on {{ loadingPost.date }}</div>
-      <div>Written by {{ loadingPost.author }}</div>
+      <div>Last updated on {{ loadedPosts.date }}</div>
+      <div>Written by {{ loadedPosts.author }}</div>
     </div>
-    <p>{{ loadingPost.content }}</p>
+    <p>{{ loadedPosts.content }}</p>
     <div>
       Post feedback
     </div>
@@ -13,20 +13,19 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   name: 'Post',
-  asyncData(context, callback) {
-    setTimeout(() => {
-      callback(null, {
-        loadingPost: {
-          id: '1',
-          title: `Post title - ${context.params.id}`,
-          date: new Date(),
-          author: 'Jack',
-          content: 'Some awesome content post blab bla'
-        },
+  asyncData(context) {
+    return axios
+      .get(`https://nuxt-blog-b7aa3.firebaseio.com/posts/${context.params.id}.json`)
+      .then(response => {
+        return {
+          loadedPosts: response.data
+        }
       })
-    }, 1000)
+      .catch(error => console.log(error))
   }
 }
 </script>

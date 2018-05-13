@@ -4,7 +4,7 @@
       <nuxt-link to='/admin/new-post' tag='button'>Create post</nuxt-link>
     </div>
     <hr>
-    <posts-list :is-admin='true' />
+    <posts-list :posts='loadedPosts' :is-admin='true' />
   </div>
 
 </template>
@@ -13,8 +13,14 @@
 import PostsList from '~/components/Posts/PostsList'
 
 export default {
+  name: 'Admin',
   components: {
     PostsList
+  },
+  computed: {
+    loadedPosts() {
+      return this.$store.getters.loadedPosts
+    }
   }
 }
 </script>
