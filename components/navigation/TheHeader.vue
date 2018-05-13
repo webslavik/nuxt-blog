@@ -40,7 +40,7 @@ export default {
     color: #333333;
   }
 
-  .nav a.nuxt-link-active {
+  .nav a.is-active {
     color: tomato;
   }
 

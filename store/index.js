@@ -26,7 +26,7 @@ const mutations = {
 const actions = {
   nuxtServerInit({ commit }, context) {
     return axios
-      .get('https://nuxt-blog-b7aa3.firebaseio.com/posts.json')
+      .get(`${process.env.firebaseUrl}/posts.json`)
       .then(response => {
         const postsArray = []
 
@@ -50,7 +50,7 @@ const actions = {
     }
 
     return axios
-      .post('https://nuxt-blog-b7aa3.firebaseio.com/posts.json', addedPost)
+      .post(`${process.env.firebaseUrl}/posts.json`, addedPost)
       .then(response => {
         commit('addPost', { ...addedPost, id: response.data.name })
       })
@@ -58,7 +58,7 @@ const actions = {
   },
   editPost({ commit }, editPost) {
     return axios
-      .put(`https://nuxt-blog-b7aa3.firebaseio.com/posts/${editPost.id}.json`, editPost)
+      .put(`${process.env.firebaseUrl}/posts/${editPost.id}.json`, editPost)
       .then(response => {
         commit('editPost', editPost)
       })

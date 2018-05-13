@@ -17,6 +17,9 @@ export default {
   components: {
     PostsList
   },
+  head: {
+    title: 'Blog Admin'
+  },
   computed: {
     loadedPosts() {
       return this.$store.getters.loadedPosts
