@@ -1,17 +1,15 @@
 <template>
   <div>
     <div class="hero" />
-
     <div class="container">
       <h1 class='home-title'>Awesome posts</h1>
-
       <posts-list />
     </div>
   </div>
 </template>
 
 <script>
-import PostsList from '~/components/posts/PostsList'
+import PostsList from '~/components/Posts/PostsList'
 
 export default {
   components: {

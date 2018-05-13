@@ -5,7 +5,7 @@
       <div class='nav'>
         <nuxt-link to='/posts'>Blog</nuxt-link>
         <nuxt-link to='/about'>About</nuxt-link>
-        <nuxt-link to='admin'>Admin</nuxt-link>
+        <nuxt-link to='/admin'>Admin</nuxt-link>
       </div>
     </div>  
 

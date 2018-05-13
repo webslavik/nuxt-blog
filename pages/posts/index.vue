@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import PostsList from '~/components/posts/PostsList'
+import PostsList from '~/components/Posts/PostsList'
 
 export default {
   components: {

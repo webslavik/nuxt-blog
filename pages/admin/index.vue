@@ -4,13 +4,13 @@
       <nuxt-link to='/admin/new-post' tag='button'>Create post</nuxt-link>
     </div>
     <hr>
-    <posts-list />
+    <posts-list :is-admin='true' />
   </div>
 
 </template>
 
 <script>
-import PostsList from '~/components/posts/PostsList'
+import PostsList from '~/components/Posts/PostsList'
 
 export default {
   components: {

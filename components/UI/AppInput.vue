@@ -1,18 +1,16 @@
 <template>
-  <div class='input-controll'>
+  <div class='input-control'>
     <label><slot/></label>
 
     <input 
       v-if='controllType === "input"'
       v-bind='$attrs'
-      v-on='$listeners'
       :value='value'
       @input='$emit("input", $event.target.value)'>
 
-    <div>{{ value }}</div>
-
     <textarea
       v-if='controllType === "textarea"'
+      v-bind='$attrs'
       rows='10'
       :value='value'
       @input='$emit("input", $event.target.value)'>
@@ -30,7 +28,7 @@ export default {
       default: 'input'
     },
     value: {
-      // type: String,
+      type: String,
       default: ''
     }
   }
@@ -38,7 +36,7 @@ export default {
 </script>
 
 <style scoped>
-  .input-controll label {
+  .input-control label {
     display: block;
     margin-bottom: 4px;
   }

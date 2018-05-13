@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class='container'>
     <h1>Post title</h1>
     <div>
       <div>Last updated on XXX</div>
