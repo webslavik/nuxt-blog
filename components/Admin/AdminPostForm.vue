@@ -26,15 +26,8 @@
 </template>
 
 <script>
-import AppButton from '~/components/UI/AppButton'
-import AppInput from '~/components/UI/AppInput'
-
 export default {
   name: 'NewPost',
-  components: {
-    AppButton,
-    AppInput
-  },
   props: {
     post: Object,
     required: false

@@ -2,7 +2,7 @@
   <div class='container'>
     <h1>{{ loadedPosts.title }}</h1>
     <div>
-      <div>Last updated on {{ loadedPosts.date }}</div>
+      <div>Last updated on {{ loadedPosts.date | date }}</div>
       <div>Written by {{ loadedPosts.author }}</div>
     </div>
     <p>{{ loadedPosts.content }}</p>

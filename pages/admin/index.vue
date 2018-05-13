@@ -10,13 +10,8 @@
 </template>
 
 <script>
-import PostsList from '~/components/Posts/PostsList'
-
 export default {
   name: 'Admin',
-  components: {
-    PostsList
-  },
   head: {
     title: 'Blog Admin'
   },
