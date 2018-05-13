@@ -1,7 +1,7 @@
 <template>
   <div class="admin-post-page container">
     <div class='update-form'>
-      <admin-post-form :post='loadedPost' />
+      <admin-post-form @submit='onSubmit' :post='loadedPost' />
     </div>
   </div>
 </template>
@@ -21,11 +21,19 @@ export default {
       .get(`https://nuxt-blog-b7aa3.firebaseio.com/posts/${context.params.postId}.json`)
       .then(response => {
         return {
-          loadedPost: response.data
+          loadedPost: { ...response.data, id: context.params.postId }
         }
       })
       .catch(error => context.error())
   },
+  methods: {
+    onSubmit(postData) {
+      this.$store.dispatch('editPost', postData)
+        .then(() => {
+          this.$router.push('/admin')
+        })
+    }
+  }
 }
 </script>
 

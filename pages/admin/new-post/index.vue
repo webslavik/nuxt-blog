@@ -17,15 +17,10 @@ export default {
   },
   methods: {
     onSubmit(postData) {
-      axios
-        .post('https://nuxt-blog-b7aa3.firebaseio.com/posts.json', {
-          ...postData,
-          date: new Date()
+      this.$store.dispatch('addPost', postData)
+        .then(() => {
+          this.$router.push('/admin')
         })
-        .then(response => {
-          console.log(response)
-        })
-        .catch(error => console.log(error))
     }
   }
 }
