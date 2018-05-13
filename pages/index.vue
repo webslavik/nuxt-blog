@@ -21,6 +21,7 @@ export default {
     }
   },
   asyncData(context, callback) {
+    console.log(context)
     setTimeout(() => {
       callback(null, {
         loadedPosts: [
@@ -39,6 +40,10 @@ export default {
         ]
       })
     }, 1500)
+  },
+  created() {
+    this.$store.dispatch('setPosts', this.loadedPosts)
+    console.log(this.$store.getters.loadedPosts)
   }
 }
 </script>
