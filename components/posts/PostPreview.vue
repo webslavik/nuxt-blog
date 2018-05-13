@@ -1,11 +1,11 @@
 <template>
   <nuxt-link class='post' :to='postLink' tag='li'>
     <div class='post-thumbnails'>
-      <img :src='image' alt=''>
+      <img :src='thumbnailPath' alt=''>
     </div>
     <div class="post-body">
       <div class='post-title'>{{ title }}</div>
-      <div class='post-text'>{{ text }}</div>
+      <div class='post-text'>{{ content }}</div>
     </div>
   </nuxt-link>
 </template>
@@ -22,7 +22,7 @@ export default {
       type: String | Number,
       required: true
     },
-    image: {
+    thumbnailPath: {
       type: String,
       required: true
     },
@@ -30,7 +30,7 @@ export default {
       type: String,
       required: true
     },
-    text: {
+    content: {
       type: String,
       required: true
     }

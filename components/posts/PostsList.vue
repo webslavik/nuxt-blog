@@ -1,17 +1,13 @@
 <template>
   <ul class='posts-list'>
-    <post-preview 
-      :is-admin='isAdmin'
-      id='1'
-      image='https://heroichollywood.b-cdn.net/wp-content/uploads/2017/05/Black-Lightning-2018-e1493653683576.jpg?x42694' 
-      title='Post title 1'
-      text='Some short description'/>
     <post-preview
+      v-for='post in posts'
+      :key='post.id'
       :is-admin='isAdmin'
-      id='2' 
-      image='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxmM0Vrv6cN8NwY4B_xogydQrbRXioqF2pqywA4emSjMNO7wAJ' 
-      title='Post title 2'
-      text='Some short description'/>
+      :id='post.id'
+      :thumbnailPath='post.thumbnailPath' 
+      :title='post.title'
+      :content='post.content'/>
   </ul>
 </template>
 
@@ -27,6 +23,10 @@ export default {
     isAdmin: {
       type: Boolean,
       default: false
+    },
+    posts: {
+      type: Array,
+      required: true
     }
   }
 }
