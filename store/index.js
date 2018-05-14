@@ -8,7 +8,8 @@ const state = {
 }
 
 const getters = {
-  loadedPosts: (state) => state.loadedPosts
+  loadedPosts: (state) => state.loadedPosts,
+  isAuthenticated: (state) => state.token != null
 }
 
 const mutations = {
@@ -24,6 +25,9 @@ const mutations = {
   },
   setToken(state, token) {
     state.token = token
+  },
+  clearToken(state) {
+    state.token = null
   }
 }
 
@@ -47,29 +51,29 @@ const actions = {
   setPosts({ commit }, posts) {
     commit('setPosts', posts)
   },
-  addPost({ commit }, post) {
+  addPost({ state, commit }, post) {
     const addedPost = {
       ...post,
       date: new Date()
     }
 
     return axios
-      .post(`${process.env.firebaseUrl}/posts.json`, addedPost)
+      .post(`${process.env.firebaseUrl}/posts.json?auth=${state.token}`, addedPost)
       .then(response => {
         commit('addPost', { ...addedPost, id: response.data.name })
       })
       .catch(error => console.log(error))
   },
-  editPost({ commit }, editPost) {
+  editPost({ state, commit }, editPost) {
     return axios
-      .put(`${process.env.firebaseUrl}/posts/${editPost.id}.json`, editPost)
+      .put(`${process.env.firebaseUrl}/posts/${editPost.id}.json?auth=${state.token}`, editPost)
       .then(response => {
         commit('editPost', editPost)
       })
       .catch(error => console.log(error))
   },
 
-  authUser({ commit }, authData) {
+  authUser({ commit, dispatch }, authData) {
     let authUrl = `https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=${process.env.firebaseAPIKey}`
       
     if (!authData.isLogin) {
@@ -84,8 +88,14 @@ const actions = {
       })
       .then(response => {
         commit('setToken', response.data.idToken)
+        dispatch('setLogoutTimer', response.expiresIn * 1000)
       })
       .catch(error => console.log(error.response.data.error.message))
+  },
+  setLogoutTimer({ commit }, duration) {
+    setTimeout(() => {
+      commit('clearToken')
+    }, duration)
   }
 }
 

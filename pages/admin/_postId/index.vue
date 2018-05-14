@@ -13,6 +13,7 @@ import AdminPostForm from '~/components/Admin/AdminPostForm'
 
 export default {
   name: 'EditPost',
+  middleware: ['auth'],
   components: {
     AdminPostForm,
   },

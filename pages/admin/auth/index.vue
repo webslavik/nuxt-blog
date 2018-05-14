@@ -20,7 +20,6 @@ import axios from 'axios'
 
 export default {
   name: 'AdminAuthPage',
-  layout: 'admin',
   data() {
     return {
       isLogin: true,

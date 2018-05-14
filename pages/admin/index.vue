@@ -12,6 +12,7 @@
 <script>
 export default {
   name: 'Admin',
+  middleware: ['auth'],
   head: {
     title: 'Blog Admin'
   },
