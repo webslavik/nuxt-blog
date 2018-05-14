@@ -87,6 +87,8 @@ const actions = {
         returnSecureToken: true
       })
       .then(response => {
+        localStorage.setItem('token', response.idToken)
+        localStorage.setItem('tokenExpiration', new Date().getTime() + response.expiresIn * 1000)
         commit('setToken', response.data.idToken)
         dispatch('setLogoutTimer', response.expiresIn * 1000)
       })
@@ -96,6 +98,17 @@ const actions = {
     setTimeout(() => {
       commit('clearToken')
     }, duration)
+  },
+  initAuth({ commit }) {
+    const token = localStorage.getItem('token')
+    const expirationDate = localStorage.getItem('tokenExpiration')
+
+    if (new Date().getTime() > +expirationDate || !token) {
+      return
+    }
+
+    dispatch('setLogoutTimer', +expirationDate - new Date().getTime())
+    commit('setToken')
   }
 }
 

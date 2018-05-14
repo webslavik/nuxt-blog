@@ -12,7 +12,7 @@ import AdminPostForm from '~/components/Admin/AdminPostForm'
 
 export default {
   name: 'NewPost',
-  middleware: ['auth'],
+  middleware: ['check-auth', 'auth'],
   components: {
     AdminPostForm
   },
