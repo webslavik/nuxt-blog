@@ -1,6 +1,6 @@
 import Vuex from 'vuex'
 import axios from 'axios'
-
+import Cookie from 'js-cookie'
 
 const state = {
   loadedPosts: [],
@@ -87,10 +87,15 @@ const actions = {
         returnSecureToken: true
       })
       .then(response => {
-        localStorage.setItem('token', response.idToken)
-        localStorage.setItem('tokenExpiration', new Date().getTime() + response.expiresIn * 1000)
+        console.log(response.data)
+        localStorage.setItem('token', response.data.idToken)
+        localStorage.setItem('tokenExpiration', new Date().getTime() + response.data.expiresIn * 1000)
+
+        Cookie.set('jwt', response.data.idToken)
+        Cookie.set('expirationDate', new Date().getTime() + response.data.expiresIn * 1000)
+
         commit('setToken', response.data.idToken)
-        dispatch('setLogoutTimer', response.expiresIn * 1000)
+        dispatch('setLogoutTimer', response.data.expiresIn * 1000)
       })
       .catch(error => console.log(error.response.data.error.message))
   },
@@ -99,16 +104,39 @@ const actions = {
       commit('clearToken')
     }, duration)
   },
-  initAuth({ commit }) {
-    const token = localStorage.getItem('token')
-    const expirationDate = localStorage.getItem('tokenExpiration')
+  initAuth({ commit, dispatch }, req) {
+    let token
+    let expirationDate
 
-    if (new Date().getTime() > +expirationDate || !token) {
-      return
+    if (req) {
+      // for Server
+      if (!req.headers.cookie) {
+        return
+      }
+      const jwtCookie = req.headers.cookie
+        .split(';')
+        .find(cookie => cookie.trim().startsWith('jwt='))
+      if (!jwtCookie) {
+        return
+      }
+      token = jwtCookie.split('=')[1]
+      expirationDate = req.headers.cookie
+        .split(';')
+        .find(cookie => cookie.trim().startsWith('expirationDate='))
+        .split('=')[1]
+    } else {
+      // for Client
+      console.log('for Client')
+      token = localStorage.getItem('token')
+      expirationDate = localStorage.getItem('tokenExpiration')
+  
+      if (new Date().getTime() > +expirationDate || !token) {
+        return
+      }
     }
 
     dispatch('setLogoutTimer', +expirationDate - new Date().getTime())
-    commit('setToken')
+    commit('setToken', token)
   }
 }
 
