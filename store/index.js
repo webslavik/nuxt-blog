@@ -125,11 +125,21 @@ const actions = {
     }
     if (new Date().getTime() > +expirationDate || !token) {
       console.log('No token or invalid token')
+      dispatch('logout')
       commit('clearToken')
       return
     }
 
     commit('setToken', token)
+  },
+  logout({ commit }) {
+    commit('clearToken')
+    Cookie.remove('jwt')
+    Cookie.remove('expirationDate')
+    if (process.client) {
+      localStorage.removeItem('token')
+      localStorage.removeItem('tokenExpiration')
+    }
   }
 }
 
