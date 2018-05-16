@@ -89,20 +89,14 @@ const actions = {
       .then(response => {
         console.log(response.data)
         localStorage.setItem('token', response.data.idToken)
-        localStorage.setItem('tokenExpiration', new Date().getTime() + response.data.expiresIn * 1000)
+        localStorage.setItem('tokenExpiration', new Date().getTime() + parseInt(response.data.expiresIn) * 1000)
 
         Cookie.set('jwt', response.data.idToken)
-        Cookie.set('expirationDate', new Date().getTime() + response.data.expiresIn * 1000)
+        Cookie.set('expirationDate', new Date().getTime() + parseInt(response.data.expiresIn) * 1000)
 
         commit('setToken', response.data.idToken)
-        dispatch('setLogoutTimer', response.data.expiresIn * 1000)
       })
       .catch(error => console.log(error.response.data.error.message))
-  },
-  setLogoutTimer({ commit }, duration) {
-    setTimeout(() => {
-      commit('clearToken')
-    }, duration)
   },
   initAuth({ commit, dispatch }, req) {
     let token
@@ -126,16 +120,15 @@ const actions = {
         .split('=')[1]
     } else {
       // for Client
-      console.log('for Client')
       token = localStorage.getItem('token')
       expirationDate = localStorage.getItem('tokenExpiration')
-  
-      if (new Date().getTime() > +expirationDate || !token) {
-        return
-      }
+    }
+    if (new Date().getTime() > +expirationDate || !token) {
+      console.log('No token or invalid token')
+      commit('clearToken')
+      return
     }
 
-    dispatch('setLogoutTimer', +expirationDate - new Date().getTime())
     commit('setToken', token)
   }
 }
