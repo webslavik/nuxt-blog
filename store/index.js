@@ -87,7 +87,6 @@ const actions = {
         returnSecureToken: true
       })
       .then(response => {
-        console.log(response.data)
         localStorage.setItem('token', response.data.idToken)
         localStorage.setItem('tokenExpiration', new Date().getTime() + parseInt(response.data.expiresIn) * 1000)
 
