@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import PostsList from '@/components/Posts/PostsList'
+import PostsList from '../components/Posts/PostsList'
 
 export default {
   middleware: 'log',
