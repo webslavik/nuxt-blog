@@ -5,17 +5,22 @@
       <button @click='logout'>Log out</button>
     </div>
     <hr>
-    <posts-list :posts='loadedPosts' :is-admin='true' />
+    <PostsList :posts='loadedPosts' :is-admin='true' />
   </div>
 
 </template>
 
 <script>
+import PostsList from '@/components/Posts/PostsList'
+
 export default {
   name: 'Admin',
   middleware: ['check-auth', 'auth'],
   head: {
     title: 'Blog Admin'
+  },
+  components: {
+    PostsList
   },
   computed: {
     loadedPosts() {

@@ -3,14 +3,19 @@
     <div class="hero" />
     <div class="container">
       <h1 class='home-title'>Awesome posts</h1>
-      <posts-list :posts='loadedPosts' />
+      <PostsList :posts='loadedPosts' />
     </div>
   </div>
 </template>
 
 <script>
+import PostsList from '@/components/Posts/PostsList'
+
 export default {
   middleware: 'log',
+  components: {
+    PostsList
+  },
   computed: {
     loadedPosts() {
       return this.$store.getters.loadedPosts
