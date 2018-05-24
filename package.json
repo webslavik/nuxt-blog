@@ -11,11 +11,14 @@
     "generate": "nuxt generate",
     "heroku-postbuild": "npm run build"
   },
+  "engines": {
+    "node": "9.4.0"
+  },
   "dependencies": {
     "axios": "^0.18.0",
     "express": "^4.16.3",
     "js-cookie": "^2.2.0",
-    "nuxt": "^1.0.0"
+    "nuxt": "^1.0.0-gh-b83d745"
   },
   "devDependencies": {
     "cross-env": "^5.0.1"
