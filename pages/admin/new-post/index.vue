@@ -8,7 +8,7 @@
 <script>
 import axios from 'axios'
 
-import AdminPostForm from '~/components/Admin/AdminPostForm'
+import AdminPostForm from '@/components/Admin/AdminPostForm'
 
 export default {
   name: 'NewPost',
